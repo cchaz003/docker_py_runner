@@ -14,11 +14,20 @@ read versionNum
 
 docker build . -t py_runner --no-cache
 
-docker image tag py_runner chaz003/py_runner:latest
+#tag & push git commit ID
 docker image tag py_runner chaz003/py_runner:$COMMIT_ID
+docker image push chaz003/py_runner:$COMMIT_ID
 
+#tag & push version number if provided
 if [ "$versionNum" != "" ]; then
     docker image tag py_runner chaz003/py_runner:$versionNum
+    docker image push chaz003/py_runner:$versionNum
 fi
 
-docker image push --all-tags chaz003/py_runner
+#tag & push latest
+docker image tag py_runner chaz003/py_runner:latest
+docker image push chaz003/py_runner:latest
+
+
+
+
